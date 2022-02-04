@@ -1,5 +1,6 @@
 package fr.isen.musoles.androidrestaurantv2
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,11 +36,12 @@ class ShopActivity : PersonalAppCompatActivity() {
             edit.putInt("nbr",pref.getInt("nbr",0) - item.getRealQuantity())
             edit.apply()
             file.writeText(Gson().toJson(stock))
-            update()
+            updateBarTools()
         }
 
         binding.button.setOnClickListener {
-
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 

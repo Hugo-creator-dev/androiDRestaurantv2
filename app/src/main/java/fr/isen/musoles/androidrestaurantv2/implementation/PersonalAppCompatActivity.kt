@@ -17,15 +17,15 @@ open class PersonalAppCompatActivity() : AppCompatActivity(){
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-        update()
+        updateBarTools()
         return super.onCreateOptionsMenu(menu)
     }
     override fun onResume() {
-        update()
+        updateBarTools()
         super.onResume()
     }
 
-    open fun update()
+    open fun updateBarTools()
     {
         toolBar.menu.findItem(R.id.nbrbar)?.title = getSharedPreferences("info", 0).getInt("nbr",0).toString()
     }

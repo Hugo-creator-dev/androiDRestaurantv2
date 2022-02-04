@@ -8,12 +8,15 @@
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/activity_categorie.xml" value="0.33" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/activity_detail.xml" value="0.33" />
+        <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/activity_login.xml" value="0.26495726495726496" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/activity_main.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/activity_menu.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/activity_shop.xml" value="0.33" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/adaptater_categorie.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/adaptater_menu.xml" value="0.33" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/adaptater_shop.xml" value="1.0" />
+        <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/fragment_login.xml" value="0.27927927927927926" />
+        <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/layout/fragment_sign_up.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/hugom/AndroidStudioProjects/androidRestaurantV2/app/src/main/res/menu/main.xml" value="0.3625" />
       </map>
     </option>

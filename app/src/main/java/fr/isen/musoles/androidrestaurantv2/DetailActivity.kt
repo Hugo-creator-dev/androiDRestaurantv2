@@ -1,7 +1,6 @@
 package fr.isen.musoles.androidrestaurantv2
 
 import android.os.Bundle
-import android.util.Log
 import com.google.gson.Gson
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityDetailBinding
 import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActivity
@@ -12,6 +11,7 @@ import java.io.File
 class DetailActivity : PersonalAppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
     private lateinit var file : File
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -26,22 +26,28 @@ class DetailActivity : PersonalAppCompatActivity() {
             file.createNewFile()
 
         var test : Item? = stock.items.firstOrNull { it.id == myData.id }
-
+        var orgine : Int = 0
         if(test == null)
         {
             test = myData
+            orgine--
         }
+        orgine += test.quantity
+
         update(test)
+
         binding.titledetail.text = test.name_fr
-        binding.descdetail.text = test.ingredients.joinToString { it.toString() }
+        binding.descdetail.text = test.getIngredients()
 
         test.firstOrDefaultImage().into(binding.presdetail)
+        binding.presdetail.setOnClickListener { test.getImagesOrOneDefault().random().into(binding.presdetail)}
+
         binding.plus.setOnClickListener { test.quantity++ ;update(test)}
         binding.moins.setOnClickListener { if (test.quantity > 0) test.quantity--;update(test) }
         binding.pricedetail.setOnClickListener {
             val pref = getSharedPreferences("info", 0)
             val edit = pref.edit()
-            edit.putInt("nbr",pref.getInt("nbr",0) + test.getRealQuantity())
+            edit.putInt("nbr",pref.getInt("nbr",0) + test.quantity - orgine)
             edit.apply()
 
             if(stock.items.any { it.id == test.id })
@@ -52,6 +58,11 @@ class DetailActivity : PersonalAppCompatActivity() {
             file.writeText(Gson().toJson(stock))
             finish()
         }
+    }
+
+    override fun startActivity() {
+        super.startActivity()
+        finish()
     }
 
     private fun update(test : Item)
