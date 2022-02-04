@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">androidRestaurantV2</string>
+    <string name="loading_image">Image de chargement</string>
+    <string name="main_information_msg_start">Merci de patienter pendant le chargement de la page</string>
+    <string name="main_information_msg_long">Chargement long, veuillez verifier votre connexion internet</string>
+    <string name="main_information_msg_end">Chargement terminé !</string>
+    <string name="main_tips_1">Le saviez vous ? un cyclope ne met pas de lunette mais une lunette</string>
+    <string name="main_tips_2">Le saviez vous ? une vélo possède 2 roues, comme les dromadaires</string>
+    <string name="tilemenu">Que veux tu manger ?</string>
+    <string name="desc_image">image de nourriture</string>
+    <string name="less_unity">less unity</string>
+    <string name="more_unity">more unity</string>
+    <string name="food_view">food view</string>
+    <string name="store">Store</string>
+    <string name="sold">Payer</string>
+    <string name="titleshop">Welcome</string>
+</resources>
