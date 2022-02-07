@@ -3,16 +3,12 @@ package fr.isen.musoles.androidrestaurantv2.adaptater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
-import fr.isen.musoles.androidrestaurantv2.databinding.ActivityMenuBinding
 import fr.isen.musoles.androidrestaurantv2.databinding.AdaptaterMenuBinding
 import fr.isen.musoles.androidrestaurantv2.model.Items
 
-class MenuAdaptater(private val items: List<Items>, private val onItemClick : (Items) -> Unit) : RecyclerView.Adapter<MenuAdaptater.MenuViewHolder>() {
+class MenuAdaptater(private val items: List<Items>, private val onItemClick : (Int) -> Unit) : RecyclerView.Adapter<MenuAdaptater.MenuViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val binding = AdaptaterMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MenuViewHolder(binding)
@@ -23,7 +19,7 @@ class MenuAdaptater(private val items: List<Items>, private val onItemClick : (I
         holder.title.text = item.name_fr
         holder.div.visibility = if (position == 0) View.INVISIBLE else View.VISIBLE
         holder.title.setOnClickListener {
-            onItemClick(item)
+            onItemClick(position)
         }
     }
 

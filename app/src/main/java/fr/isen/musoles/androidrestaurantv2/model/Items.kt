@@ -19,4 +19,8 @@ data class Items(val name_fr: String, val name_en : String, val items : List<Ite
     override fun hashCode(): Int {
         return super.hashCode()
     }
+
+    operator fun get(i: Int): Item {
+        return items[i]
+    }
 }

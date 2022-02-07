@@ -1,73 +1,72 @@
 package fr.isen.musoles.androidrestaurantv2
 
 import android.os.Bundle
-import com.google.gson.Gson
+import android.util.Log
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityDetailBinding
+import fr.isen.musoles.androidrestaurantv2.enumeration.DATATYPE
 import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActivity
 import fr.isen.musoles.androidrestaurantv2.model.Item
-import fr.isen.musoles.androidrestaurantv2.model.Shop
-import java.io.File
 
 class DetailActivity : PersonalAppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
-    private lateinit var file : File
-
+    private lateinit var item : Item
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        toolBar = binding.toolbar2
-        super.onCreate(savedInstanceState)
-        val myData : Item = intent.getSerializableExtra(SHOPTRANSFERT) as Item
-        file = File(cacheDir,"data.json")
-        val stock = Shop(ArrayList())
-        if(file.exists())
-            stock.items = Gson().fromJson(file.readText(),Shop::class.java).items
-        else
-            file.createNewFile()
+    super.onCreate(savedInstanceState)
+    binding = ActivityDetailBinding.inflate(layoutInflater)
+    binding.apply {
+            val position : IntArray? = getActivityPosition()
+            if(position != null && position.size == 2) {
+                item = mainData[position]
+                val shop = getShop()
+                var quantity = 0
+                if (shop.containsKey(Pair(position[0], position[1])))
+                    quantity = shop[Pair(position[0], position[1])]!!
 
-        var test : Item? = stock.items.firstOrNull { it.id == myData.id }
-        var orgine : Int = 0
-        if(test == null)
-        {
-            test = myData
-            orgine--
-        }
-        orgine += test.quantity
+                setContentView(root)
+                setToolBar(toolbar2)
+                item.apply {
+                    titledetail.text = name_fr
+                    descdetail.text = getIngredients()
+                    presdetail.apply {
+                        firstOrDefaultImage().into(this)
+                        setOnClickListener {
+                            getNextImage().into(this)
+                        }
+                    }
+                }
 
-        update(test)
 
-        binding.titledetail.text = test.name_fr
-        binding.descdetail.text = test.getIngredients()
+                update(quantity)
 
-        test.firstOrDefaultImage().into(binding.presdetail)
-        binding.presdetail.setOnClickListener { test.getImagesOrOneDefault().random().into(binding.presdetail)}
-
-        binding.plus.setOnClickListener { test.quantity++ ;update(test)}
-        binding.moins.setOnClickListener { if (test.quantity > 0) test.quantity--;update(test) }
-        binding.pricedetail.setOnClickListener {
-            val pref = getSharedPreferences("info", 0)
-            val edit = pref.edit()
-            edit.putInt("nbr",pref.getInt("nbr",0) + test.quantity - orgine)
-            edit.apply()
-
-            if(stock.items.any { it.id == test.id })
-                stock.items.firstOrNull { it.id == test.id }?.quantity == test.quantity
+                plus.setOnClickListener {
+                    update(++quantity)
+                }
+                moins.setOnClickListener {
+                    if (quantity > 0) update(--quantity)
+                }
+                pricedetail.setOnClickListener {
+                    updateShop(Pair(position[0], position[1]), quantity)
+                    val redirect = getActivityRedirection()
+                    if (redirect != null)
+                        startActivity(redirect)
+                    finish()
+                }
+            }
             else
-                stock.items += test
-
-            file.writeText(Gson().toJson(stock))
-            finish()
+            {
+                Log.e("POSITION","bad data position meet")
+                startActivity(DATATYPE.ERROR)
+                finish()
+            }
         }
     }
 
-    override fun startActivity() {
-        super.startActivity()
-        finish()
-    }
-
-    private fun update(test : Item)
+    private fun update(quantity : Int)
     {
-        binding.nbrdetail.text = test.getRealQuantity().toString()
-        binding.pricedetail.text = (test.getRealQuantity() * test.getPrice()!!).toString() + "€"
+        binding.apply {
+            nbrdetail.text = quantity.toString()
+            val myString : String = (quantity * item.getPrice()!!).toString() + "€"
+            pricedetail.text =  myString
+        }
     }
 }

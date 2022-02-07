@@ -1,14 +1,14 @@
 package fr.isen.musoles.androidrestaurantv2.model
 
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.RequestCreator
 import fr.isen.musoles.androidrestaurantv2.R
 import java.io.Serializable
 
-data class Item(val id : Int,val name_fr : String,val name_en : String,val id_category : Int,val categ_name_fr : String,val categ_name_en : String,val images : List<String>, val ingredients : List<Ingredient>, val prices : List<Price>, var quantity : Int) : Serializable
+data class Item(val id : Int,val name_fr : String,val name_en : String,val id_category : Int,val categ_name_fr : String,val categ_name_en : String,val images : List<String>, val ingredients : List<Ingredient>, val prices : List<Price>) : Serializable
 {
+    private var nextImage : Int = 0
+
     override fun toString(): String {
         return name_fr + " au prix de " + getPrice().toString() + " avec " + ingredients.size + " ingrédient."
     }
@@ -47,12 +47,24 @@ data class Item(val id : Int,val name_fr : String,val name_en : String,val id_ca
             ArrayList<RequestCreator>().apply { add(Picasso.get().load( R.drawable.defaultimage )) }
     }
 
-    override fun hashCode(): Int {
-        return super.hashCode()
+    fun getNextImage(): RequestCreator
+    {
+        return Picasso.get().run {
+            if(images.run {
+                if(nextImage < size) {
+                    this[++nextImage]
+                }
+                else {
+                    nextImage = 0
+                    this[nextImage]
+                } }.isNotEmpty())
+            load(images[nextImage])
+            else
+                load(R.drawable.defaultimage)
+        }.placeholder(R.drawable.defaultimage)
     }
 
-    fun getRealQuantity() : Int
-    {
-        return quantity + 1
+    override fun hashCode(): Int {
+        return super.hashCode()
     }
 }

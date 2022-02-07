@@ -18,18 +18,18 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/firstname" />
+            android:text="@string/firstnameChamp" />
 
         <EditText
             android:id="@+id/prenomIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
+            android:hint="@string/firstnameHolder"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="@string/firstname"
-            tools:ignore="DuplicateSpeakableTextCheck"
-            android:autofillHints="" />
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Space
             android:layout_width="match_parent"
@@ -39,18 +39,18 @@
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lastname2" />
+            android:text="@string/lastnameChamp" />
 
         <EditText
             android:id="@+id/nomIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
+            android:hint="@string/lastnameHolder"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="@string/lastname"
-            tools:ignore="DuplicateSpeakableTextCheck"
-            android:autofillHints="" />
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Space
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email2" />
+            android:text="@string/emailChamp" />
 
         <EditText
             android:id="@+id/emailIn"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/email2"
+            android:hint="@string/emailHolder"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             tools:ignore="DuplicateSpeakableTextCheck" />
@@ -81,7 +81,7 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/adresse" />
+            android:text="@string/addressChamp" />
 
         <EditText
             android:id="@+id/editTextTextPostalAddress"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/adresse_postale"
+            android:hint="@string/addressHolder"
             android:inputType="textPostalAddress"
             android:minHeight="48dp"
             tools:ignore="DuplicateSpeakableTextCheck" />
@@ -102,7 +102,7 @@
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/password2" />
+            android:text="@string/passwordChamp" />
 
         <EditText
             android:id="@+id/pass1In"
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/passwordchamp2"
+            android:hint="@string/passwordHolder"
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:textColorHint="#546E7A"
@@ -124,18 +124,18 @@
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/password" />
+            android:text="@string/rePasswordChamp" />
 
         <EditText
             android:id="@+id/pass2In"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
-            android:hint="@string/mot_de_passe_verification"
+            android:hint="@string/rePasswordHolder"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:textColorHint="#546E7A"
-            android:autofillHints="" />
+            android:textColorHint="#546E7A" />
 
         <Space
             android:layout_width="match_parent"
@@ -145,12 +145,12 @@
             android:id="@+id/InIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/inscription" />
+            android:text="@string/buttonInscription" />
 
         <TextView
             android:id="@+id/ch2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/changeRessoucres2" />
+            android:text="@string/changeToSignIn" />
     </LinearLayout>
 </FrameLayout>

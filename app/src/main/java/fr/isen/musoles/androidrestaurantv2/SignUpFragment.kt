@@ -14,26 +14,15 @@ import com.android.volley.toolbox.Volley
 import fr.isen.musoles.androidrestaurantv2.databinding.FragmentSignUpBinding
 import org.json.JSONObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUpFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignUpFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding : FragmentSignUpBinding
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
         binding = FragmentSignUpBinding.inflate(layoutInflater)
@@ -44,30 +33,37 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.ch2.setOnClickListener {
-            (activity as? LoginActivity)?.signupToLogin()
+            (activity as? LoginActivity)?.signupToSignIn()
         }
 
         binding.InIn.setOnClickListener {
-            //if(!Patterns.EMAIL_ADDRESS.matcher(binding.emailIn.text).find())
-            //    Toast.makeText(context,"Bad email", Toast.LENGTH_LONG)
-            //else if (binding.pass1In.text.length < 9 || binding.pass1In.text != binding.pass2In.text)
-            //    Toast.makeText(context,"Bad password", Toast.LENGTH_LONG)
-            //else
-            //{
+            if(!Patterns.EMAIL_ADDRESS.matcher(binding.emailIn.text.toString()).find())
+                Toast.makeText(context,R.string.error_mail, Toast.LENGTH_LONG).show()
+            else if (binding.pass1In.text.length < 9)
+                Toast.makeText(context,R.string.error_password, Toast.LENGTH_LONG).show()
+            else if (binding.pass1In.text.toString() != binding.pass2In.text.toString())
+                Toast.makeText(context,R.string.error_password_not_same, Toast.LENGTH_LONG).show()
+            else if (binding.editTextTextPostalAddress.text.isNullOrEmpty() || binding.nomIn.text.isNullOrEmpty() || binding.prenomIn.text.isNullOrEmpty())
+                Toast.makeText(context,R.string.error_not_all_enter, Toast.LENGTH_LONG).show()
+            else
+            {
                 val jsonObjectRequest = JsonObjectRequest(
                     Request.Method.POST,
                     "http://test.api.catering.bluecodegames.com/user/register",
+                    //TODO : secure this
                     JSONObject("{\"id_shop\":\"1\",\"firstname\":\"${binding.prenomIn.text}\",\"lastname\":\"${binding.nomIn.text}\",\"address\":\"${binding.editTextTextPostalAddress.text}\",\"email\":\"${binding.emailIn.text}\",\"password\":\"${binding.pass1In.text}\"}"),
                     { response ->
-                        Log.d("Reponse",response.toString())
+                        Log.d("Response",response.toString())
+                        (activity as? LoginActivity)?.signupToSignIn()
                     },
                     { error ->
                         error.printStackTrace()
-                        Log.e("Reponse",error.networkResponse.data.toString())
+                        Log.e("Response",error.networkResponse.data.toString())
+                        Toast.makeText(context,R.string.error_inscription_back, Toast.LENGTH_LONG).show()
                     }
                 )
                 Volley.newRequestQueue(context).add(jsonObjectRequest)
-           // }
+            }
         }
     }
 }

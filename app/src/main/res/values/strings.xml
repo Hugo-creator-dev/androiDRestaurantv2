@@ -1,40 +1,56 @@
 <resources>
     <string name="app_name">androidRestaurantV2</string>
+
     <string name="loading_image">Image de chargement</string>
+    <string name="desc_image_food">image de nourriture</string>
+
     <string name="main_information_msg_start">Merci de patienter pendant le chargement de la page</string>
     <string name="main_information_msg_long">Chargement long, veuillez verifier votre connexion internet</string>
     <string name="main_information_msg_end">Chargement terminé !</string>
+    <string name="main_information_msg_error">Une erreur a été recontré</string>
+
     <string name="main_tips_1">Le saviez vous ? un cyclope ne met pas de lunette mais une lunette</string>
     <string name="main_tips_2">Le saviez vous ? une vélo possède 2 roues, comme les dromadaires</string>
-    <string name="tilemenu">Que veux tu manger ?</string>
-    <string name="desc_image">image de nourriture</string>
+
+    <string name="titleMenu">Que veux tu manger ?</string>
+    <string name="titleShop">Welcome</string>
+
     <string name="less_unity">less unity</string>
     <string name="more_unity">more unity</string>
     <string name="food_view">food view</string>
     <string name="store">Store</string>
-    <string name="sold">Payer</string>
-    <string name="titleshop">Welcome</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="changeRessources">Sign Up</string>
-    <string name="buttonconnexion">connexion</string>
-    <string name="callbackname">Se souvenir du nom</string>
-    <string name="password">Mot de passe</string>
-    <string name="email">Entrez votre email</string>
-    <string name="emailchamp">Email</string>
-    <string name="passwordchamp">Password</string>
-    <string name="changeRessoucres2">Sign in</string>
-    <string name="inscription">Inscription</string>
-    <string name="lastname">Nom</string>
-    <string name="firstname">Prenom</string>
-    <string name="password3">Mot de passe</string>
-    <string name="email2">Email</string>
-    <string name="password2">Mot de passe</string>
-    <string name="passwordchamp2">Mot de passe</string>
-    <string name="email3">Email</string>
-    <string name="lastname2">Nom</string>
-    <string name="adresse_postale">Adresse</string>
-    <string name="firstname2">Prenom</string>
-    <string name="mot_de_passe_verification">Mot de passe verification</string>
-    <string name="adresse">Adresse</string>
+    <string name="buttonPay">Payer</string>
+
+    <string name="changeToSignUp">Sign Up</string>
+    <string name="changeToSignIn">Sign in</string>
+    <string name="callBackName">Se souvenir du nom</string>
+
+    <string name="buttonConnexion">Connexion</string>
+    <string name="buttonInscription">Inscription</string>
+
+    <string name="emailChamp">Entrez votre email</string>
+    <string name="emailHolder">Email</string>
+
+    <string name="passwordChamp">Entrez votre mot de passe</string>
+    <string name="passwordHolder">Mot de passe</string>
+
+    <string name="addressChamp">Adresse</string>
+    <string name="addressHolder">Adresse</string>
+
+    <string name="rePasswordChamp">Mot de passe verification</string>
+    <string name="rePasswordHolder">Mot de passe</string>
+
+    <string name="lastnameChamp">Nom</string>
+    <string name="lastnameHolder">Nom</string>
+
+    <string name="firstnameChamp">Prénom</string>
+    <string name="firstnameHolder">Prénom</string>
+
+    <string name="error_mail">Bad email</string>
+    <string name="error_password">Bad password</string>
+    <string name="error_password_not_same">Bad password verify</string>
+    <string name="error_not_all_enter">Also a shop is empty!</string>
+
+    <string name="error_inscription_back">Something was wrong</string>
+    <string name="error_connexion_back">Something was wrong</string>
 </resources>

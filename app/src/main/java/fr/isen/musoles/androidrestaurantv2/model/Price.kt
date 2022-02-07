@@ -5,7 +5,7 @@ import java.io.Serializable
 data class Price(val id : Int, val id_pizza: Int, val price : Double, val create_date : String,val update_date : String,val size: String) : Serializable
 {
     override fun toString(): String {
-        return price.toString()
+        return price.toString() + "€"
     }
 
     override fun equals(other: Any?): Boolean {

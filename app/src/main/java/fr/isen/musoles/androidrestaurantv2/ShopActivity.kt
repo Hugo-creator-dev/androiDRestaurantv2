@@ -1,53 +1,55 @@
 package fr.isen.musoles.androidrestaurantv2
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import fr.isen.musoles.androidrestaurantv2.adaptater.ShopAdaptater
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityShopBinding
+import fr.isen.musoles.androidrestaurantv2.enumeration.DATATYPE
+import fr.isen.musoles.androidrestaurantv2.generalStatic.ConvertClass
 import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActivity
-import fr.isen.musoles.androidrestaurantv2.model.Shop
-import java.io.File
 
 class ShopActivity : PersonalAppCompatActivity() {
-    private lateinit var binding : ActivityShopBinding
-    private lateinit var file : File
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityShopBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        toolBar = binding.toolbar
         super.onCreate(savedInstanceState)
-        file = File(cacheDir,"data.json")
-        var stock = Shop(ArrayList())
-        if(file.exists())
-            stock = Gson().fromJson(file.readText(), Shop::class.java)
-        else
-            finish()
+        ActivityShopBinding.inflate(layoutInflater).apply {
+            setContentView(root)
+            val shop = getShop()
+            val stock = shop.map { mainData[it.key] }
+            val stockInverse = shop.mapKeys { mainData[it.key] }
+            val stockReverse=  shop.mapValues { mainData[it.key] }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = ShopAdaptater( stock.items ) { item ->
-            Log.e("ok",stock.items.toString())
-            stock.items = stock.items.filter { it.id != item.id }
-            Log.e("ok2",stock.items.toString())
-            val pref = getSharedPreferences("info", 0)
-            val edit = pref.edit()
-            edit.putInt("nbr",pref.getInt("nbr",0) - item.getRealQuantity())
-            edit.apply()
-            file.writeText(Gson().toJson(stock))
-            updateBarTools()
-        }
+            recyclerView.apply {
+                layoutManager = LinearLayoutManager(this@ShopActivity)
+                stock.apply {
+                    adapter = ShopAdaptater(this,
+                        { item ->
+                            startActivity(DATATYPE.ITEM,stockReverse.firstNotNullOf { if(it.value == item) ConvertClass.convertPairToIntArray(it.key) else null },true)
+                            finish()
+                    },
+                        { item ->
+                            stockInverse[item]!!
+                    })
 
-        binding.button.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+                }
+            }
+            if(isConnected())
+                button.visibility = View.VISIBLE
+            else
+                buttonCo.visibility = View.VISIBLE
+
+            button.setOnClickListener {
+                //startActivity(DATATYPE.SOLD, intArrayOf(0))
+            }
+            buttonCo.setOnClickListener {
+                startActivity(DATATYPE.LOGIN, intArrayOf(0),true)
+            }
         }
     }
 
-    override fun startActivity()
+    override fun startShopActivity()
     {
-        super.startActivity()
+        super.startShopActivity()
         finish()
     }
 }

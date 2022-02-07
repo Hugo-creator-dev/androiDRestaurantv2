@@ -18,17 +18,17 @@
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email" />
+            android:text="@string/emailChamp" />
 
         <EditText
             android:id="@+id/emailCo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
-            android:hint="@string/emailchamp"
+            android:hint="@string/emailHolder"
             android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:autofillHints="" />
+            android:minHeight="48dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -38,24 +38,25 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/password" />
+            android:text="@string/passwordChamp" />
 
         <EditText
             android:id="@+id/passCo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
-            android:hint="@string/passwordchamp"
+            android:hint="@string/passwordHolder"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:autofillHints="" />
+            android:textColorHint="#546E7A" />
 
         <Switch
             android:id="@+id/switch2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:text="@string/callbackname" />
+            android:text="@string/callBackName" />
 
         <Space
             android:layout_width="match_parent"
@@ -65,12 +66,12 @@
             android:id="@+id/CoCo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/buttonconnexion" />
+            android:text="@string/buttonConnexion" />
 
         <TextView
             android:id="@+id/ch1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/changeRessources" />
+            android:text="@string/changeToSignUp" />
     </LinearLayout>
 </FrameLayout>
