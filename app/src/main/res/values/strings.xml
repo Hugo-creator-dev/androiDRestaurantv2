@@ -53,4 +53,10 @@
 
     <string name="error_inscription_back">Something was wrong</string>
     <string name="error_connexion_back">Something was wrong</string>
+    <string name="refrech">refrech</string>
+    <string name="default_value_0">0</string>
+
+    <string name="buttonSeeMenu">Voir le menu</string>
+    <string name="recharge">Recharger</string>
+    <string name="buttonLogOut">Deconnection</string>
 </resources>

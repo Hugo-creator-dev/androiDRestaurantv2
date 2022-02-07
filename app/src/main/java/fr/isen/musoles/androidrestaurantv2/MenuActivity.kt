@@ -2,6 +2,7 @@ package fr.isen.musoles.androidrestaurantv2
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.musoles.androidrestaurantv2.adaptater.MenuAdaptater
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityMenuBinding
@@ -10,6 +11,7 @@ import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActiv
 
 class MenuActivity : PersonalAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("ACTIVITY","start MenuActivity")
         super.onCreate(savedInstanceState)
         ActivityMenuBinding.inflate(layoutInflater).apply {
             setContentView(root)

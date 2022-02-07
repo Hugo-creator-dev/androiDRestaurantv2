@@ -1,6 +1,7 @@
 package fr.isen.musoles.androidrestaurantv2
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.musoles.androidrestaurantv2.adaptater.ShopAdaptater
@@ -12,6 +13,7 @@ import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActiv
 class ShopActivity : PersonalAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i("ACTIVITY","start ShopActivity")
         ActivityShopBinding.inflate(layoutInflater).apply {
             setContentView(root)
             val shop = getShop()
@@ -43,6 +45,7 @@ class ShopActivity : PersonalAppCompatActivity() {
             }
             buttonCo.setOnClickListener {
                 startActivity(DATATYPE.LOGIN, intArrayOf(0),true)
+                finish()
             }
         }
     }

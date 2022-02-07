@@ -15,6 +15,7 @@ import fr.isen.musoles.androidrestaurantv2.model.*
 import java.io.File
 
 const val jsonDataName = "data.json"
+const val REDIRECTION = "REDIRECTION"
 open class PersonalAppCompatActivity : AppCompatActivity(){
     private var toolBar : Toolbar? = null
 
@@ -23,6 +24,11 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
         lateinit var file : File
         var shop : Shop = Shop(0, emptyMap())
         var user : User? = null
+    }
+
+    open fun setNotConnected()
+    {
+        user = null
     }
 
     open fun setUser(userIn : User)
@@ -54,14 +60,20 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
 
     open fun updateBarTools()
     {
-        if(toolBar != null)
-            toolBar!!.menu.findItem(R.id.nbrbar)?.title = getSharedPreferences("info", 0).getInt("nbr",0).toString()
+        if(toolBar != null) {
+            toolBar!!.menu.findItem(R.id.nbrbar)?.title =
+                getSharedPreferences("info", 0).getInt("nbr", 0).toString()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.cadbar -> startShopActivity()
-            R.id.nbrbar -> Toast.makeText(this, "Vous avez commander x type de plat different", Toast.LENGTH_SHORT).show() //TODO : add compteur
+            R.id.nbrbar -> Toast.makeText(this, "Vous avez commander ${shop.list.size} type de plat different", Toast.LENGTH_SHORT).show()
+            R.id.refrech -> {
+                finish()
+                startActivity(DATATYPE.DEFAULT)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -100,7 +112,7 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
     {
         val isType = getDataType(type)
         val intent = Intent(this, isType.javaClass)
-        intent.putExtra("REDIRECTION",redirection)
+        intent.putExtra(REDIRECTION,redirection)
         startActivity(intent)
     }
 
@@ -109,7 +121,7 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
         val isType = getDataType(type)
         val intent = Intent(this, isType.javaClass)
         intent.putExtra(isType.forExtra,position)
-        intent.putExtra("REDIRECTION",redirection)
+        intent.putExtra(REDIRECTION,redirection)
         startActivity(intent)
     }
 
@@ -119,7 +131,7 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
         val intent = Intent(this, isType.javaClass)
         intent.putExtra(isType.forExtra,position)
         if(redirection)
-            intent.putExtra("REDIRECTION",getDataType())
+            intent.putExtra(REDIRECTION,getDataType())
         startActivity(intent)
     }
 
@@ -130,7 +142,7 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
 
     open fun getActivityRedirection() : DATATYPE?
     {
-        return intent.getSerializableExtra("REDIRECTION") as? DATATYPE
+        return intent.getSerializableExtra(REDIRECTION) as? DATATYPE
     }
 
     private fun getDataType(type : DATATYPE? = null) : DATATYPE
@@ -140,52 +152,85 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
 
     open fun updateShop(key : Pair<Int,Int>, value : Int)
     {
-        if(value > 0) {
-            shop.list += Pair(key, value)
-        }
-        else
-        {
-            shop.list = shop.list.filter { it.value > 0 && it.key != key }
-        }
+        shop.apply {
+            if (value > 0) {
+                list += Pair(key, value)
+            } else {
+                list = list.filter { it.value > 0 && it.key != key }
+            }
 
-        val edit = getSharedPreferences("info", 0).edit()
-        edit.putInt("nbr",shop.list.values.sum())
-        edit.putInt("diffPlate",shop.list.keys.sumOf { it.second }) //TODO : no comment error because previous TOTO
-        edit.apply()
-        file.writeText(Gson().toJson(shop))
+            getSharedPreferences("info", 0).edit().apply {
+                putInt("nbr", list.values.sum())
+                apply()
+            }
+            file.writeText(Gson().toJson(this))
+        }
+    }
+
+    open fun getAuthentication() : Pair<String,String>?
+    {
+        return getSharedPreferences("user", 0).run {
+            if (contains("email"))
+                Pair(getString("email", "")!!, getString("password", "")!!)
+            else
+                null
+        }
+    }
+
+    open fun callMeBackAuthentication(bool : Boolean, email : String, password : String)
+    {
+        getSharedPreferences("user", 0).edit().apply {
+            if(bool)
+            {
+                putString("email",email)
+                putString("password",password)
+            }
+            else
+            {
+                clear()
+            }
+            apply()
+        }
     }
 
     open fun getShop() : Map<Pair<Int,Int>,Int>
     {
         file = File(cacheDir,jsonDataName)
         file.apply {
-            shop.apply {
+
                 if (exists())
                     try {
                         Log.d("DATA",readText())
                         val new = Gson().fromJson(readText(), FuckingShopConversion::class.java)
                         shop = new.convertToShop()
-                        if (hash != mainData.hashCode()) {
+                        if (shop.hash != mainData.hashCode()) {
                             delete()
-                            list = emptyMap()
-                            hash = mainData.hashCode()
-                            Log.d("DATA","old value, so empty")
+                            resetData()
+                            Log.i("DATA","old value, so empty")
                         }
                     } catch (e: JsonSyntaxException) {
                         Log.e("DATA",e.stackTraceToString())
                         delete()
-                        list = emptyMap()
-                        hash = mainData.hashCode()
+                        resetData()
                         Log.e("DATA","parsing error")
                     }
                 else {
-                    list = emptyMap()
-                    hash = mainData.hashCode()
-                    Log.d("DATA","No previous data")
+                    resetData()
+                    Log.i("DATA","No previous data")
                 }
+                Log.i("DATA", "${shop.hash}:${shop.list}")
+                return shop.list
             }
+
+    }
+
+    private fun resetData()
+    {
+        shop.list = emptyMap()
+        shop.hash = mainData.hashCode()
+        getSharedPreferences("info", 0).edit().apply {
+            putInt("nbr", 0)
+            apply()
         }
-        Log.i("DATA",shop.hash.toString() + ":" + shop.list.toString())
-        return shop.list
     }
 }

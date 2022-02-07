@@ -12,6 +12,8 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.musoles.androidrestaurantv2.databinding.FragmentSignUpBinding
+import fr.isen.musoles.androidrestaurantv2.generalStatic.PersonalString
+import fr.isen.musoles.androidrestaurantv2.generalStatic.RequestOnAPI
 import org.json.JSONObject
 
 
@@ -24,45 +26,47 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-
+        Log.i("ACTIVITY","start SignUpFragment")
         binding = FragmentSignUpBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            ch2.setOnClickListener {
+                (activity as? LoginActivity)?.signupToSignIn()
+            }
 
-        binding.ch2.setOnClickListener {
-            (activity as? LoginActivity)?.signupToSignIn()
-        }
+            InIn.setOnClickListener {
+                val email = emailIn.text.toString()
+                val pass1 = pass1In.text.toString()
+                val pass2 = pass2In.text.toString()
+                val address = editTextTextPostalAddress.text.toString()
+                val firstname = prenomIn.text.toString()
+                val lastname = nomIn.text.toString()
 
-        binding.InIn.setOnClickListener {
-            if(!Patterns.EMAIL_ADDRESS.matcher(binding.emailIn.text.toString()).find())
-                Toast.makeText(context,R.string.error_mail, Toast.LENGTH_LONG).show()
-            else if (binding.pass1In.text.length < 9)
-                Toast.makeText(context,R.string.error_password, Toast.LENGTH_LONG).show()
-            else if (binding.pass1In.text.toString() != binding.pass2In.text.toString())
-                Toast.makeText(context,R.string.error_password_not_same, Toast.LENGTH_LONG).show()
-            else if (binding.editTextTextPostalAddress.text.isNullOrEmpty() || binding.nomIn.text.isNullOrEmpty() || binding.prenomIn.text.isNullOrEmpty())
-                Toast.makeText(context,R.string.error_not_all_enter, Toast.LENGTH_LONG).show()
-            else
-            {
-                val jsonObjectRequest = JsonObjectRequest(
-                    Request.Method.POST,
-                    "http://test.api.catering.bluecodegames.com/user/register",
-                    //TODO : secure this
-                    JSONObject("{\"id_shop\":\"1\",\"firstname\":\"${binding.prenomIn.text}\",\"lastname\":\"${binding.nomIn.text}\",\"address\":\"${binding.editTextTextPostalAddress.text}\",\"email\":\"${binding.emailIn.text}\",\"password\":\"${binding.pass1In.text}\"}"),
-                    { response ->
-                        Log.d("Response",response.toString())
-                        (activity as? LoginActivity)?.signupToSignIn()
-                    },
-                    { error ->
-                        error.printStackTrace()
-                        Log.e("Response",error.networkResponse.data.toString())
-                        Toast.makeText(context,R.string.error_inscription_back, Toast.LENGTH_LONG).show()
+                if (!PersonalString.isCorrectEmail(email))
+                    Toast.makeText(context, R.string.error_mail, Toast.LENGTH_LONG).show()
+                else if (!PersonalString.isCorrectPassword(pass1))
+                    Toast.makeText(context, R.string.error_password, Toast.LENGTH_LONG).show()
+                else if (pass1 != pass2)
+                    Toast.makeText(context, R.string.error_password_not_same, Toast.LENGTH_LONG)
+                        .show()
+                else if (!PersonalString.isCorrectAddress(address) || !PersonalString.isCorrectName(lastname) || !PersonalString.isCorrectName(firstname))
+                    Toast.makeText(context, R.string.error_not_all_enter, Toast.LENGTH_LONG).show()
+                else {
+                    val jsonObjectRequest = RequestOnAPI.setRequestOfInscription({email},{firstname},{lastname},{address},{pass1})
+                    {
+                        if(it != null) {
+                            (activity as? LoginActivity)?.callMeBackAuthentication(true,email,pass1)
+                            (activity as? LoginActivity)?.signupToSignIn()
+                        }
+                        else
+                            Toast.makeText(context, R.string.error_inscription_back, Toast.LENGTH_LONG).show()
                     }
-                )
-                Volley.newRequestQueue(context).add(jsonObjectRequest)
+                    Volley.newRequestQueue(context).add(jsonObjectRequest)
+                }
             }
         }
     }

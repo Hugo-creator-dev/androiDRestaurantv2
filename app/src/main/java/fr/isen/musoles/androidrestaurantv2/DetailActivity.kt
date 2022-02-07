@@ -11,9 +11,10 @@ class DetailActivity : PersonalAppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
     private lateinit var item : Item
     override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    binding = ActivityDetailBinding.inflate(layoutInflater)
-    binding.apply {
+        Log.i("ACTIVITY","start DetailActivity")
+        super.onCreate(savedInstanceState)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        binding.apply {
             val position : IntArray? = getActivityPosition()
             if(position != null && position.size == 2) {
                 item = mainData[position]

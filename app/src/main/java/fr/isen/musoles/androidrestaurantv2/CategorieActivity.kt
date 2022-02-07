@@ -12,6 +12,7 @@ import fr.isen.musoles.androidrestaurantv2.model.Items
 
 class CategorieActivity : PersonalAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("ACTIVITY","start CategorieActivity")
         super.onCreate(savedInstanceState)
         val actPosition: IntArray? = getActivityPosition()
         if(actPosition != null && actPosition.size == 1) {

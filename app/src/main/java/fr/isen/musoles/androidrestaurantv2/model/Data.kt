@@ -19,7 +19,7 @@ data class Data(val data : List<Items>) : Serializable
     }
 
     override fun hashCode(): Int {
-        return super.hashCode()
+        return toString().hashCode() //ok limite ne rien faire c'est la même chose XD
     }
 
     operator fun get(position: Int): Items {

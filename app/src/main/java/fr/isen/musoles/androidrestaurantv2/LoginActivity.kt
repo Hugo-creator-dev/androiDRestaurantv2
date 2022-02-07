@@ -2,6 +2,7 @@ package fr.isen.musoles.androidrestaurantv2
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -12,9 +13,10 @@ import fr.isen.musoles.androidrestaurantv2.model.User
 class LoginActivity : PersonalAppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("ACTIVITY","start LoginActivity")
+        super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        super.onCreate(savedInstanceState)
 
         val actPosition : IntArray? = getActivityPosition()
         if(actPosition != null && actPosition[0] == 0)
