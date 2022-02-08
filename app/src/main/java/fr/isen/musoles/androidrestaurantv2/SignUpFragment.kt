@@ -2,19 +2,15 @@ package fr.isen.musoles.androidrestaurantv2
 
 import android.os.Bundle
 import android.util.Log
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import fr.isen.musoles.androidrestaurantv2.databinding.FragmentSignUpBinding
 import fr.isen.musoles.androidrestaurantv2.generalStatic.PersonalString
 import fr.isen.musoles.androidrestaurantv2.generalStatic.RequestOnAPI
-import org.json.JSONObject
 
 
 class SignUpFragment : Fragment() {

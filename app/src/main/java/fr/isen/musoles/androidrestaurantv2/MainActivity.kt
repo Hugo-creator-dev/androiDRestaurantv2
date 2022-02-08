@@ -3,19 +3,13 @@ package fr.isen.musoles.androidrestaurantv2
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityMainBinding
 import fr.isen.musoles.androidrestaurantv2.enumeration.DATATYPE
 import fr.isen.musoles.androidrestaurantv2.generalStatic.RequestOnAPI
 import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActivity
-import fr.isen.musoles.androidrestaurantv2.model.Data
-import org.json.JSONObject
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.concurrent.timerTask
 
 class HomeActivity : PersonalAppCompatActivity() {

@@ -1,10 +1,8 @@
 package fr.isen.musoles.androidrestaurantv2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.android.volley.toolbox.Volley
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityPastOrderBinding
-import fr.isen.musoles.androidrestaurantv2.databinding.ActivityShopBinding
 import fr.isen.musoles.androidrestaurantv2.generalStatic.RequestOnAPI
 import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActivity
 

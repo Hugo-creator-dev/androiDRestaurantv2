@@ -39,14 +39,6 @@ data class Item(val id : Int,val name_fr : String,val name_en : String,val id_ca
             Picasso.get().load( R.drawable.defaultimage )
     }
 
-    fun getImagesOrOneDefault() : List<RequestCreator>
-    {
-        return if (images.any { it.isNotEmpty() })
-            images.map {  Picasso.get().load( it ).placeholder(R.drawable.defaultimage) }
-        else
-            ArrayList<RequestCreator>().apply { add(Picasso.get().load( R.drawable.defaultimage )) }
-    }
-
     fun getNextImage(): RequestCreator
     {
         return Picasso.get().run {

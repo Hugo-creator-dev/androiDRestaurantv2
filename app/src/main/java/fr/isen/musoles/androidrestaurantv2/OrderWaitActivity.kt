@@ -1,14 +1,11 @@
 package fr.isen.musoles.androidrestaurantv2
 
-import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityOrderWaitBinding
-import fr.isen.musoles.androidrestaurantv2.databinding.ActivityShopBinding
 import fr.isen.musoles.androidrestaurantv2.enumeration.DATATYPE
 import fr.isen.musoles.androidrestaurantv2.generalStatic.RequestOnAPI
 import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActivity

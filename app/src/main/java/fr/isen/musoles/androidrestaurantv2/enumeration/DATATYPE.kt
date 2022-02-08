@@ -1,7 +1,6 @@
 package fr.isen.musoles.androidrestaurantv2.enumeration
 
 import fr.isen.musoles.androidrestaurantv2.*
-import fr.isen.musoles.androidrestaurantv2.databinding.ActivityPastOrderBinding
 import java.io.Serializable
 
 enum class DATATYPE(val forExtra : String, val javaClass : Class<*>) : Serializable {

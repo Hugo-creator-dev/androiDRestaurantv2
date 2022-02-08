@@ -2,7 +2,6 @@ package fr.isen.musoles.androidrestaurantv2
 
 import android.os.Bundle
 import android.util.Log
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
