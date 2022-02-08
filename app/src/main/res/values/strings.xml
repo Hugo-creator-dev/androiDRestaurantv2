@@ -59,4 +59,6 @@
     <string name="buttonSeeMenu">Voir le menu</string>
     <string name="recharge">Recharger</string>
     <string name="buttonLogOut">Deconnection</string>
+    <string name="google_map">Google map</string>
+    <string name="last_order_button">derniere commande</string>
 </resources>

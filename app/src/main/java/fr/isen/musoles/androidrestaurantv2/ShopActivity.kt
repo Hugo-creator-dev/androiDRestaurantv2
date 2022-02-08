@@ -41,7 +41,7 @@ class ShopActivity : PersonalAppCompatActivity() {
                 buttonCo.visibility = View.VISIBLE
 
             button.setOnClickListener {
-                //startActivity(DATATYPE.SOLD, intArrayOf(0))
+                startActivity(DATATYPE.ORDER)
             }
             buttonCo.setOnClickListener {
                 startActivity(DATATYPE.LOGIN, intArrayOf(0),true)

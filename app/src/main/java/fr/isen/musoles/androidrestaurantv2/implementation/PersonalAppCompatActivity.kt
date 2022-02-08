@@ -26,6 +26,11 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
         var user : User? = null
     }
 
+    open fun getUserId() : Int?
+    {
+        return user?.id
+    }
+
     open fun setNotConnected()
     {
         user = null
@@ -195,37 +200,35 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
 
     open fun getShop() : Map<Pair<Int,Int>,Int>
     {
-        file = File(cacheDir,jsonDataName)
-        file.apply {
-
-                if (exists())
-                    try {
-                        Log.d("DATA",readText())
-                        val new = Gson().fromJson(readText(), FuckingShopConversion::class.java)
-                        shop = new.convertToShop()
-                        if (shop.hash != mainData.hashCode()) {
-                            delete()
-                            resetData()
-                            Log.i("DATA","old value, so empty")
-                        }
-                    } catch (e: JsonSyntaxException) {
-                        Log.e("DATA",e.stackTraceToString())
-                        delete()
+        File(cacheDir,jsonDataName).apply {
+            if (exists())
+                try {
+                    val text: String = readText()
+                    Log.d("DATA", text)
+                    val new = Gson().fromJson(text, FuckingShopConversion::class.java)
+                    shop = new.convertToShop()
+                    if (shop.hash != mainData.hashCode()) {
                         resetData()
-                        Log.e("DATA","parsing error")
+                        Log.i("DATA", "old value, so empty")
                     }
-                else {
+                } catch (e: JsonSyntaxException) {
+                    Log.e("DATA", e.stackTraceToString())
                     resetData()
-                    Log.i("DATA","No previous data")
+                    Log.e("DATA", "parsing error")
                 }
-                Log.i("DATA", "${shop.hash}:${shop.list}")
-                return shop.list
+            else {
+                resetData()
+                Log.i("DATA", "No previous data")
             }
+            Log.i("DATA", "${shop.hash}:${shop.list}")
+            return shop.list
 
+        }
     }
 
-    private fun resetData()
+    open fun resetData()
     {
+        File(cacheDir,jsonDataName).delete()
         shop.list = emptyMap()
         shop.hash = mainData.hashCode()
         getSharedPreferences("info", 0).edit().apply {

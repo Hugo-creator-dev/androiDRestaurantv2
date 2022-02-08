@@ -6,4 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".OrderWaitActivity">
 
+    <ImageView
+        android:id="@+id/imageLoad"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/loading_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/load" />
+
+    <TextView
+        android:id="@+id/advertissment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintBottom_toBottomOf="@+id/imageLoad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Commande en cours" />
 </androidx.constraintlayout.widget.ConstraintLayout>

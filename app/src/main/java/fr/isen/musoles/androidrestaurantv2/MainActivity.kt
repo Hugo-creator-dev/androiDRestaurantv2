@@ -22,7 +22,6 @@ class HomeActivity : PersonalAppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private val generalTimer : Timer = Timer(true)
     private lateinit var charged : Timer
-    private val lsv : List<Int> = ArrayList<Int>().apply { add(R.string.main_tips_1);add(R.string.main_tips_2) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +36,7 @@ class HomeActivity : PersonalAppCompatActivity() {
 
         generalTimer.schedule(timerTask {
             this@HomeActivity.runOnUiThread{
-                mainTips.setText(lsv.random())
+                mainTips.text = resources.getStringArray(R.array.main_tips).random()
             }
         },5000,5000)
 
@@ -68,9 +67,13 @@ class HomeActivity : PersonalAppCompatActivity() {
                 startCharged()
                 Volley.newRequestQueue(this@HomeActivity).add(jsonObjectRequest)
             }
+            keepOrder.setOnClickListener {
+                startActivity(DATATYPE.PAST_ORDER)
+            }
             deco.setOnClickListener {
                 setNotConnected()
                 deco.visibility = View.GONE
+                keepOrder.visibility = View.GONE
                 inscript.visibility = View.VISIBLE
                 connect.visibility = View.VISIBLE
             }
@@ -88,6 +91,7 @@ class HomeActivity : PersonalAppCompatActivity() {
                 if(isConnected())
                 {
                     deco.visibility = View.VISIBLE
+                    keepOrder.visibility = View.VISIBLE
                 }
                 else {
                     inscript.visibility = View.VISIBLE
@@ -114,6 +118,7 @@ class HomeActivity : PersonalAppCompatActivity() {
             connect.visibility = View.GONE
             inscript.visibility = View.GONE
             retryCharge.visibility = View.GONE
+            keepOrder.visibility = View.GONE
             seeMenu.visibility = View.GONE
             deco.visibility = View.GONE
         }
@@ -130,12 +135,14 @@ class HomeActivity : PersonalAppCompatActivity() {
         binding.apply {
             if (isConnected() && deco.visibility == View.GONE && inscript.visibility == View.VISIBLE) {
                 deco.visibility = View.VISIBLE
+                keepOrder.visibility = View.VISIBLE
                 inscript.visibility = View.GONE
                 connect.visibility = View.GONE
             } else {
                 inscript.visibility = View.VISIBLE
                 connect.visibility = View.VISIBLE
                 deco.visibility = View.GONE
+                keepOrder.visibility = View.GONE
             }
         }
     }

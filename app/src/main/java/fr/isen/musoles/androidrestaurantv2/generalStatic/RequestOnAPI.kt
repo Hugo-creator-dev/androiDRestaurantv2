@@ -11,7 +11,7 @@ import org.json.JSONObject
 const val BASEURL = "http://test.api.catering.bluecodegames.com/"
 object RequestOnAPI {
 
-    private fun setRequestOf(target : String, data : JSONObject, debrouilleToi : Boolean = false,callBackFunction: (String?) -> Unit): JsonObjectRequest {
+    private fun setRequestOf(target : String, data : JSONObject, objectType : Boolean?,callBackFunction: (String?) -> Unit): JsonObjectRequest {
         return JsonObjectRequest(
             Request.Method.POST,
             BASEURL + target,
@@ -24,10 +24,11 @@ object RequestOnAPI {
                     }
                     else -> {
                         Log.d("Response", response.toString())
-                        if(debrouilleToi)
-                            callBackFunction(response.toString())
-                        else
-                            callBackFunction(response.getJSONObject("data").toString())
+                        when {
+                            objectType == null -> callBackFunction(response.toString())
+                            objectType -> callBackFunction(response.getJSONObject("data").toString())
+                            else -> callBackFunction(response.getJSONArray("data").toString())
+                        }
                     }
                 }
             },
@@ -42,7 +43,7 @@ object RequestOnAPI {
     @JvmStatic
     fun setRequestOfData(callBackFunction: (Data?) -> Unit): JsonObjectRequest {
         return setRequestOf("menu",
-            JSONObject(),true)
+            JSONObject(),null)
         {
             if(it != null)
                 callBackFunction(Gson().fromJson(it,Data::class.java))
@@ -60,7 +61,7 @@ object RequestOnAPI {
         return setRequestOf("user/login",
             JSONObject()
                 .put("email", email())
-                .put("password", password()))
+                .put("password", password()),true)
         {
             if(it != null)
                 callBackFunction(Gson().fromJson(it,User::class.java))
@@ -85,10 +86,44 @@ object RequestOnAPI {
                 .put("password", password())
                 .put("firstname",firstname())
                 .put("lastname",lastname())
-                .put("address",address()))
+                .put("address",address()),true)
         {
             if(it != null)
                 callBackFunction(Gson().fromJson(it,User::class.java))
+            else
+                callBackFunction(null)
+        }
+    }
+
+    @JvmStatic
+    fun setRequestOfOrder(
+        id_user: () -> Int,
+        msg: () -> String,
+        callBackFunction: (String?) -> Unit
+    ) : JsonObjectRequest
+    {
+        return setRequestOf("user/order",
+            JSONObject()
+                .put("id_user", id_user())
+                .put("msg", msg()),false)
+        {
+            if(it != null)
+                callBackFunction(it)
+            else
+                callBackFunction(null)
+        }
+    }
+    fun setRequestOfPastOrder(
+        id_user: () -> Int,
+        callBackFunction: (String?) -> Unit
+    ) : JsonObjectRequest
+    {
+        return setRequestOf("listorders",
+            JSONObject()
+                .put("id_user", id_user()),false)
+        {
+            if(it != null)
+                callBackFunction(it)
             else
                 callBackFunction(null)
         }
