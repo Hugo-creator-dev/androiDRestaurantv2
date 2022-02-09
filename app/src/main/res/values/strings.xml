@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">androidRestaurantV2</string>
+    <string name="app_name">EatArt Resto</string>
 
     <string name="loading_image">Image de chargement</string>
     <string name="desc_image_food">image de nourriture</string>
