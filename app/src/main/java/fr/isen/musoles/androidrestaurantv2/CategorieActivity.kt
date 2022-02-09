@@ -26,6 +26,7 @@ class CategorieActivity : PersonalAppCompatActivity() {
                     layoutManager = LinearLayoutManager(this@CategorieActivity)
                     adapter = CategorieAdaptater(myData.items) {
                         startActivity(DATATYPE.ITEM, intArrayOf(position, it))
+                        finish()
                     }
                 }
             }

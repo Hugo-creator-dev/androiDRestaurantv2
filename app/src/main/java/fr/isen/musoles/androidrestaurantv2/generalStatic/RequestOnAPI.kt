@@ -4,8 +4,10 @@ import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.google.gson.Gson
+import fr.isen.musoles.androidrestaurantv2.model.BigShop
 import fr.isen.musoles.androidrestaurantv2.model.Data
 import fr.isen.musoles.androidrestaurantv2.model.User
+import fr.isen.musoles.androidrestaurantv2.model.UserOrders
 import org.json.JSONObject
 
 const val BASEURL = "http://test.api.catering.bluecodegames.com/"
@@ -115,15 +117,15 @@ object RequestOnAPI {
     }
     fun setRequestOfPastOrder(
         id_user: () -> Int,
-        callBackFunction: (String?) -> Unit
+        callBackFunction: (UserOrders?) -> Unit
     ) : JsonObjectRequest
     {
         return setRequestOf("listorders",
             JSONObject()
-                .put("id_user", id_user()),false)
+                .put("id_user", id_user()),null)
         {
             if(it != null)
-                callBackFunction(it)
+                callBackFunction(Gson().fromJson(it,UserOrders::class.java))
             else
                 callBackFunction(null)
         }

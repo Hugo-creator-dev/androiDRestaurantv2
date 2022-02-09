@@ -70,4 +70,9 @@ class DetailActivity : PersonalAppCompatActivity() {
             pricedetail.text =  myString
         }
     }
+
+    override fun startShopActivity() {
+        finish()
+        super.startShopActivity()
+    }
 }

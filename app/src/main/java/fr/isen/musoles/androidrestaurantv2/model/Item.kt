@@ -17,13 +17,9 @@ data class Item(val id : Int,val name_fr : String,val name_en : String,val id_ca
         return ingredients.containsAll((other as Item).ingredients) && name_fr == other.name_fr
     }
 
-    fun getPrice(): Double?
+    fun getPrice(): Double
     {
-        if (prices.firstOrNull() != null)
-        {
-            return prices.firstOrNull()!!.price
-        }
-        return null
+         prices.firstOrNull().also {  return it?.price ?: 0.0 }
     }
 
     fun getIngredients() : String

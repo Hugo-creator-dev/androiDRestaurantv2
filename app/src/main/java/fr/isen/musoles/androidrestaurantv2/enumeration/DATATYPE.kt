@@ -11,7 +11,7 @@ enum class DATATYPE(val forExtra : String, val javaClass : Class<*>) : Serializa
     LOGIN("LOGIN",LoginActivity::class.java),
     ORDER("ORDER",OrderWaitActivity::class.java),
     DEFAULT("DEFAULT",HomeActivity::class.java),
-    ERROR("ERROR",HomeActivity::class.java),
+    ERROR("ERROR",ErrorActivity::class.java),
     PAST_ORDER("PAST_ORDER",PastOrderActivity::class.java),
     NOTHING("",Any::class.java)
 }

@@ -21,9 +21,13 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
 
     companion object {
         var mainData : Data = Data(ArrayList())
-        lateinit var file : File
         var shop : Shop = Shop(0, emptyMap())
         var user : User? = null
+    }
+
+    open fun getHash() : Int
+    {
+        return shop.hash
     }
 
     open fun getUserId() : Int?
@@ -73,10 +77,17 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.cadbar -> startShopActivity()
-            R.id.nbrbar -> Toast.makeText(this, "Vous avez commander ${shop.list.size} type de plat different", Toast.LENGTH_SHORT).show()
-            R.id.refrech -> {
-                finish()
+            R.id.cadbar ->
+            {
+                if(shop.list.isNotEmpty())
+                    startShopActivity()
+                else
+                    Toast.makeText(this, "Pensez a remplire d'abord votre panier !", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nbrbar -> { Toast.makeText(this, "Vous avez commander ${shop.list.size} type de plat different", Toast.LENGTH_SHORT).show() }
+            R.id.refrech ->
+            {
+                finishAffinity()
                 startActivity(DATATYPE.DEFAULT)
             }
         }
@@ -168,7 +179,24 @@ open class PersonalAppCompatActivity : AppCompatActivity(){
                 putInt("nbr", list.values.sum())
                 apply()
             }
-            file.writeText(Gson().toJson(this))
+            File(cacheDir,jsonDataName).writeText(Gson().toJson(this))
+        }
+    }
+
+    open fun updateShop(shopper : Shop) : Boolean
+    {
+        shop.apply {
+            return if(shopper.hash == hash) {
+                list = shopper.list
+                getSharedPreferences("info", 0).edit().apply {
+                    putInt("nbr", list.values.sum())
+                    apply()
+                }
+                File(cacheDir,jsonDataName).writeText(Gson().toJson(this))
+                true
+            } else {
+                false
+            }
         }
     }
 

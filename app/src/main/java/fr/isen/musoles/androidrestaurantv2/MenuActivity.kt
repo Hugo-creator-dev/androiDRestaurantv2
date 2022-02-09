@@ -25,17 +25,12 @@ class MenuActivity : PersonalAppCompatActivity() {
                 }
             }
             goToMapButton.setOnClickListener {
-                // Map point based on address
                 val mapIntent: Intent = Uri.parse(
                     "geo:0,0?q=ISEN+Yncréa+Méditerranée+-+Campus+de+Toulon,+Place+Georges+Pompidou,+Toulon"
-                ).let { location ->Log.d("map","pleaseeeeed")
-                    // Or map point based on latitude/longitude
-                    // val location: Uri = Uri.parse("geo:37.422219,-122.08364?z=14") // z param is zoom level
+                ).let { location ->
                     Intent(Intent.ACTION_VIEW, location)
-
                 }
                 startActivity(mapIntent)
-                Log.d("map","pleaseeeee")
             }
         }
     }

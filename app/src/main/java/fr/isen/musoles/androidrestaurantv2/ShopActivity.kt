@@ -5,16 +5,19 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.musoles.androidrestaurantv2.adaptater.ShopAdaptater
+import fr.isen.musoles.androidrestaurantv2.databinding.ActivityMainBinding
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityShopBinding
 import fr.isen.musoles.androidrestaurantv2.enumeration.DATATYPE
 import fr.isen.musoles.androidrestaurantv2.generalStatic.ConvertClass
 import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActivity
 
 class ShopActivity : PersonalAppCompatActivity() {
+    private lateinit var binding : ActivityShopBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("ACTIVITY","start ShopActivity")
-        ActivityShopBinding.inflate(layoutInflater).apply {
+        binding = ActivityShopBinding.inflate(layoutInflater)
+        binding.apply {
             setContentView(root)
             val shop = getShop()
             val stock = shop.map { mainData[it.key] }
@@ -42,17 +45,23 @@ class ShopActivity : PersonalAppCompatActivity() {
 
             button.setOnClickListener {
                 startActivity(DATATYPE.ORDER)
+                finish()
             }
             buttonCo.setOnClickListener {
-                startActivity(DATATYPE.LOGIN, intArrayOf(0),true)
-                finish()
+                startActivity(DATATYPE.LOGIN, intArrayOf(0))
             }
         }
     }
 
-    override fun startShopActivity()
-    {
-        super.startShopActivity()
-        finish()
+    override fun onResume() {
+        super.onResume()
+        if(isConnected()) {
+            binding.button.visibility = View.VISIBLE
+            binding.buttonCo.visibility = View.GONE
+        }
+        else {
+            binding.buttonCo.visibility = View.VISIBLE
+            binding.button.visibility = View.GONE
+        }
     }
 }

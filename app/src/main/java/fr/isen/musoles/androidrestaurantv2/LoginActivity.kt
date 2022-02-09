@@ -1,10 +1,7 @@
 package fr.isen.musoles.androidrestaurantv2
 
-
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import fr.isen.musoles.androidrestaurantv2.databinding.ActivityLoginBinding
 import fr.isen.musoles.androidrestaurantv2.implementation.PersonalAppCompatActivity
 import fr.isen.musoles.androidrestaurantv2.model.User
@@ -17,32 +14,25 @@ class LoginActivity : PersonalAppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val actPosition : IntArray? = getActivityPosition()
-        if(actPosition != null && actPosition[0] == 0)
-        {
-            signupToSignIn()
-        }
-        else
-        {
-            loginToSignUp()
+        getActivityPosition().also {
+            if (it != null && it[0] == 0) {
+                signupToSignIn()
+            } else {
+                loginToSignUp()
+            }
         }
     }
 
     fun loginToSignUp() {
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(binding.fragmentContainerView.id, SignUpFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(binding.fragmentContainerView.id, SignUpFragment()).commit()
     }
 
     fun signupToSignIn() {
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(binding.fragmentContainerView.id, LoginFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(binding.fragmentContainerView.id, LoginFragment()).commit()
     }
 
     fun validating(user : User) {
         setUser(user)
-        startActivity()
         finish()
     }
 }

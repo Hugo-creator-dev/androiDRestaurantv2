@@ -61,4 +61,10 @@
     <string name="buttonLogOut">Deconnection</string>
     <string name="google_map">Google map</string>
     <string name="last_order_button">derniere commande</string>
+    <string name="buttonBackSafePlace">Retourner en lieu sûr</string>
+    <string name="error_text_message">Quelque chose c\'est mal produit</string>
+    <string name="validation_command">la commande a été effectué</string>
+    <string name="wait_command">la commande est en cours</string>
+    <string name="last_order">Dernieres commandes</string>
+    <string name="re_do_commande">Reprendre (supprime le panier actuelle)</string>
 </resources>

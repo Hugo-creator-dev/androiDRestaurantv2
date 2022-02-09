@@ -52,10 +52,10 @@ class HomeActivity : PersonalAppCompatActivity() {
                 startActivity(DATATYPE.DATA)
             }
             connect.setOnClickListener {
-                startActivity(DATATYPE.LOGIN, intArrayOf(0),DATATYPE.DATA)
+                startActivity(DATATYPE.LOGIN, intArrayOf(0))
             }
             inscript.setOnClickListener {
-                startActivity(DATATYPE.LOGIN, intArrayOf(1),DATATYPE.DATA)
+                startActivity(DATATYPE.LOGIN, intArrayOf(1))
             }
             retryCharge.setOnClickListener {
                 startCharged()
@@ -125,9 +125,9 @@ class HomeActivity : PersonalAppCompatActivity() {
     }
 
     override fun onResume() {
-        super.onResume()
+
         binding.apply {
-            if (isConnected() && deco.visibility == View.GONE && inscript.visibility == View.VISIBLE) {
+            if (isConnected()) {
                 deco.visibility = View.VISIBLE
                 keepOrder.visibility = View.VISIBLE
                 inscript.visibility = View.GONE
@@ -139,5 +139,6 @@ class HomeActivity : PersonalAppCompatActivity() {
                 keepOrder.visibility = View.GONE
             }
         }
+        super.onResume()
     }
 }
