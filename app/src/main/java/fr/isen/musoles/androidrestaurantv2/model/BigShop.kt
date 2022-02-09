@@ -11,7 +11,7 @@ data class BigShop(val hash : Int,val date: String , val totalPrice : Double , v
         shop.hash,
         Date(Date(Date(Date(Date(Date(Date(Date(Date(Date().toString()).toString()).toString()).toString()).toString()).toString()).toString()).toString()).toString()).toString(),
         shop.list.entries.sumOf { data[it.key].getPrice() * it.value },
-        shop.list.values.count(),
+        shop.list.values.sum(),
         shop.list.map { ShopItem(it.key,data[it.key],it.value) }
     )
 
