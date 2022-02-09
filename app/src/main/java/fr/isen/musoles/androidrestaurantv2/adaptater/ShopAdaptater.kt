@@ -19,9 +19,9 @@ class ShopAdaptater (private val items: List<Item>, private val onItemClick : (I
         val item = items[position]
         holder.title.text = PersonalString.reduceString(item.name_fr,14,"...")
         holder.quantity.text = onItemQuantity(item).toString()
-        val string1 : String = (item.getPrice()!! *  onItemQuantity(item)).toString() + "€"
+        val string1 : String = (item.getPrice() *  onItemQuantity(item)).toString() + "€"
         holder.price.text = string1
-        total += item.getPrice()!! * onItemQuantity(item)
+        total += item.getPrice() * onItemQuantity(item)
         val string2 : String = total.toString() + "€"
         holder.cumulus.text = string2
         holder.itemView.setOnClickListener {

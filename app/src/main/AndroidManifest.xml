@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.isen.musoles.androidrestaurantv2">
+    package="fr.isen.musoles.androidrestaurantv2" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,34 +11,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
         <activity
-            android:name=".ErrorActivity"
+            android:name=".activity.specialPage.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name=".PastOrderActivity"
+            android:name=".activity.order.PastOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".OrderWaitActivity"
+            android:name=".activity.order.OrderWaitActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.user.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ShopActivity"
+            android:name=".activity.order.ShopActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".activity.basicNavigation.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".CategorieActivity"
+            android:name=".activity.basicNavigation.CategorieActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuActivity"
+            android:name=".activity.basicNavigation.MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
-            android:exported="true">
+            android:name=".activity.specialPage.HomeActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

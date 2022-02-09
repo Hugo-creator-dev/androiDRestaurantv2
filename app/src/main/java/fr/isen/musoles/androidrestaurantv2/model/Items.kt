@@ -7,7 +7,7 @@ data class Items(val name_fr: String, val name_en : String, var items : List<Ite
     override fun toString(): String {
         return name_fr + ": " + listOfName()
     }
-    fun listOfName() : String {
+    private fun listOfName() : String {
         return items.joinToString { it.name_fr }
     }
 

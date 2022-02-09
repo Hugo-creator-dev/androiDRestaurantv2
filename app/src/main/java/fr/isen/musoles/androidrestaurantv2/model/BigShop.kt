@@ -9,7 +9,7 @@ data class BigShop(val hash : Int,val date: String , val totalPrice : Double , v
 {
     constructor(shop: Shop,data: Data) : this (
         shop.hash,
-        Date(Date(Date(Date(Date(Date(Date(Date(Date(Date().toString()).toString()).toString()).toString()).toString()).toString()).toString()).toString()).toString()).toString(),
+        Date().toString(),
         shop.list.entries.sumOf { data[it.key].getPrice() * it.value },
         shop.list.values.sum(),
         shop.list.map { ShopItem(it.key,data[it.key],it.value) }
